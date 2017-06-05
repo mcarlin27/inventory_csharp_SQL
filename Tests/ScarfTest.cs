@@ -35,5 +35,19 @@ namespace Inventory
       //Assert
       Assert.Equal(firstScarf, secondScarf);
     }
+    [Fact]
+    public void Test_Save_SavesToDatabase()
+    {
+      //Arrange
+      Scarf testScarf = new Scarf("RedDrum", 2016, "Fundraiser for drum");
+
+      //Act
+      testScarf.Save();
+      List<Scarf> result = Scarf.GetAll();
+      List<Scarf> testList = new List<Scarf>{testScarf};
+
+      //Assert
+      Assert.Equal(testList, result);
+    }
   }
 }
