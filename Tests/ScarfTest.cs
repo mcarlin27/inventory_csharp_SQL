@@ -12,10 +12,6 @@ namespace Inventory
     {
       DBConfiguration.ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=inventory_test;Integrated Security=SSPI;";
     }
-    public void Dispose()
-    {
-      Scarf.DeleteAll();
-    }
     [Fact]
     public void Test_DatabaseEmptyAtFirst()
     {
@@ -35,20 +31,22 @@ namespace Inventory
       //Assert
       Assert.Equal(firstScarf, secondScarf);
     }
-    // [Fact]
-    // public void Test_Save_SavesToDatabase()
-    // {
-    //   //Arrange
-    //   Scarf testScarf = new Scarf("RedDrum", 2016, "Fundraiser for drum");
-    //
-    //   //Act
-    //   testScarf.Save();
-    //   List<Scarf> result = Scarf.GetAll();
-    //   List<Scarf> testList = new List<Scarf>{testScarf};
-    //
-    //   //Assert
-    //   Assert.Equal(testList, result);
-    // }
+
+    [Fact]
+    public void Test_Save_SavesToDatabase()
+    {
+      //Arrange
+      Scarf testScarf = new Scarf("RedDrum", 2016, "Fundraiser for drum");
+
+      //Act
+      testScarf.Save();
+      List<Scarf> result = Scarf.GetAll();
+      List<Scarf> testList = new List<Scarf>{testScarf};
+
+      //Assert
+      Assert.Equal(testList[0], result[0]);
+    }
+
     [Fact]
     public void Test_Save_AssignsIdToObject()
     {
@@ -57,13 +55,22 @@ namespace Inventory
 
       //Act
       testScarf.Save();
-      Scarf savedScarf = Scarf.GetAll()[0];
-
-      int result = savedScarf.GetId();
       int testId = testScarf.GetId();
 
+      // Console.WriteLine(Scarf.GetAll()[0].GetId());
+      int savedScarfId = Scarf.GetAll()[0].GetId();
+      Console.WriteLine("after getAll"+Scarf.GetAll()[0].GetName());
+      Console.WriteLine("after getAll"+Scarf.GetAll()[0].GetId());
+      Console.WriteLine("after getAll"+Scarf.GetAll()[0].GetDescription());
+
+      // int result = savedScarf.GetId();
+
       //Assert
-      Assert.Equal(testId, result);
+      Assert.Equal(testId, savedScarfId);
+    }
+    public void Dispose()
+    {
+      Scarf.DeleteAll();
     }
   }
 }

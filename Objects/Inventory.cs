@@ -29,7 +29,9 @@ namespace Inventory
         Scarf newScarf = (Scarf) otherScarf;
         bool idEquality = (this.GetId() == newScarf.GetId());
         bool nameEquality = (this.GetName() == newScarf.GetName());
-        return (idEquality && nameEquality);
+        bool yearEquality = (this.GetYear() == newScarf.GetYear());
+        bool descriptionEquality = (this.GetDescription() == newScarf.GetDescription());
+        return (idEquality && nameEquality && yearEquality && descriptionEquality);
       }
     }
     public int GetId()
@@ -84,7 +86,7 @@ namespace Inventory
         string scarfName = rdr.GetString(1);
         int scarfYear = rdr.GetInt32(2);
         string scarfDescription = rdr.GetString(3);
-        Scarf newScarf = new Scarf(scarfName, scarfYear, scarfDescription);
+        Scarf newScarf = new Scarf(scarfName, scarfYear, scarfDescription, scarfId);
         allScarves.Add(newScarf);
       }
 
