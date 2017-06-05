@@ -6,17 +6,17 @@ namespace Inventory
 {
   public class Scarf
   {
-    private int _id;
     private string _name;
     private int _year;
     private string _description;
+    private int _id;
 
-    public Scarf(string Name, int Year, string Description)
+    public Scarf(string Name, int Year, string Description, int Id = 0)
     {
-      _id = 0;
       _name = Name;
       _year = Year;
       _description = Description;
+      _id = Id;
     }
     public override bool Equals(System.Object otherScarf)
     {
@@ -96,7 +96,6 @@ namespace Inventory
       {
         conn.Close();
       }
-
       return allScarves;
     }
     public void Save()
@@ -104,12 +103,22 @@ namespace Inventory
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("INSERT INTO scarves (name) OUTPUT INSERTED.id VALUES (@ScarfName);", conn);
+      SqlCommand cmd = new SqlCommand("INSERT INTO scarves (name, year, description) OUTPUT INSERTED.id VALUES (@ScarfName, @ScarfYear, @ScarfDescription);", conn);
 
       SqlParameter nameParameter = new SqlParameter();
       nameParameter.ParameterName = "@ScarfName";
       nameParameter.Value = this.GetName();
       cmd.Parameters.Add(nameParameter);
+
+      SqlParameter yearParameter = new SqlParameter();
+      yearParameter.ParameterName = "@ScarfYear";
+      yearParameter.Value = this.GetYear();
+      cmd.Parameters.Add(yearParameter);
+
+      SqlParameter descriptionParameter = new SqlParameter();
+      descriptionParameter.ParameterName = "@ScarfDescription";
+      descriptionParameter.Value = this.GetDescription();
+      cmd.Parameters.Add(descriptionParameter);
       SqlDataReader rdr = cmd.ExecuteReader();
 
       while(rdr.Read())
