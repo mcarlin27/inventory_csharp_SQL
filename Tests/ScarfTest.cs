@@ -25,5 +25,15 @@ namespace Inventory
       //Assert
       Assert.Equal(0, result);
     }
+    [Fact]
+    public void Test_Equal_ReturnsTrueIfDescriptionsAreTheSame()
+    {
+      //Arrange, Act
+      Scarf firstScarf = new Scarf("RedDrum", 2016, "Fundraiser for drum");
+      Scarf secondScarf = new Scarf("RedDrum", 2016, "Fundraiser for drum");
+
+      //Assert
+      Assert.Equal(firstScarf, secondScarf);
+    }
   }
 }

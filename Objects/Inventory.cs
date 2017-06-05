@@ -11,9 +11,9 @@ namespace Inventory
     private int _year;
     private string _description;
 
-    public Scarf(string Name, int Year, string Description, int Id = 0)
+    public Scarf(string Name, int Year, string Description)
     {
-      _id = Id;
+      _id = 0;
       _name = Name;
       _year = Year;
       _description = Description;
@@ -70,7 +70,7 @@ namespace Inventory
         string scarfName = rdr.GetString(1);
         int scarfYear = rdr.GetInt32(2);
         string scarfDescription = rdr.GetString(3);
-        Scarf newScarf = new Scarf(scarfName, scarfYear, scarfDescription, scarfId);
+        Scarf newScarf = new Scarf(scarfName, scarfYear, scarfDescription);
         allScarves.Add(newScarf);
       }
 
