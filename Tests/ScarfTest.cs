@@ -49,5 +49,21 @@ namespace Inventory
       //Assert
       Assert.Equal(testList, result);
     }
+    [Fact]
+    public void Test_Save_AssignsIdToObject()
+    {
+      //Arrange
+      Scarf testScarf = new Scarf("RedDrum", 2016, "Fundraiser for drum");
+
+      //Act
+      testScarf.Save();
+      Scarf savedScarf = Scarf.GetAll()[0];
+
+      int result = savedScarf.GetId();
+      int testId = testScarf.GetId();
+
+      //Assert
+      Assert.Equal(testId, result);
+    }
   }
 }
