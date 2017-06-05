@@ -18,6 +18,19 @@ namespace Inventory
       _year = Year;
       _description = Description;
     }
+    public override bool Equals(System.Object otherScarf)
+    {
+      if (!(otherScarf is Scarf))
+      {
+        return false;
+      }
+      else
+      {
+        Scarf newScarf = (Scarf) otherScarf;
+        bool nameEquality = (this.GetName() == newScarf.GetName());
+        return (nameEquality);
+      }
+    }
     public int GetId()
     {
       return _id;
