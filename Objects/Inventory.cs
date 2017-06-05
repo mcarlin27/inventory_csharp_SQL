@@ -27,8 +27,9 @@ namespace Inventory
       else
       {
         Scarf newScarf = (Scarf) otherScarf;
+        bool idEquality = (this.GetId() == newScarf.GetId());
         bool nameEquality = (this.GetName() == newScarf.GetName());
-        return (nameEquality);
+        return (idEquality && nameEquality);
       }
     }
     public int GetId()
